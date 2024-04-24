@@ -20,7 +20,7 @@ pipeline {
         }
         stage('JUnit Test') {
             steps {
-                // Run unit tests
+                // Run Junit tests
                 script {
                     try {
                         sh 'mvn clean test surefire-report:report' 
@@ -114,10 +114,10 @@ pipeline {
             echo 'One or more stages have failed!'
             echo 'Pipeline Aborted'
         }
-
-        // always {
-        //     // Publish Surefire test results
-        //     junit 'target/surefire-reports/*/.xml'
-        // }
+        always {
+            echo 'always section'
+            // Publish Surefire test results
+            junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+        }
     }
 }
