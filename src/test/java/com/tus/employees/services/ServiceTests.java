@@ -57,7 +57,7 @@ public class ServiceTests {
     List<Employee> empList = service.findAll();
 
     assertEquals(3, empList.size());
-    verify(dao, times(100)).findAll();
+    verify(dao, times(1)).findAll();
   }
 
   @Test
