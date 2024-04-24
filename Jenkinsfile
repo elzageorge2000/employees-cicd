@@ -12,7 +12,7 @@ pipeline {
                 echo 'Git Checkout Completed'
             }
         }
-        stage(' Maven Build') {
+        stage('Maven Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
                 echo 'Maven build Completed'
@@ -43,7 +43,7 @@ pipeline {
                 }
             }
         }
-        stage('Copy artifact to EC2') {
+        stage('Copy artifacts to EC2') {
             steps {
                 sshPublisher(
                     publishers: [
@@ -73,7 +73,7 @@ pipeline {
                 )
             }
         }
-        stage('Run Docker Container') {
+        stage('Deploy') {
             steps {
                 sshPublisher(
                     publishers: [
