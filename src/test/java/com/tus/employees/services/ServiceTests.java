@@ -92,7 +92,7 @@ public class ServiceTests {
 
       // Assert
       //assertEquals(updatedEmployee, savedEmployee);
-      verify(dao, times(1)).findById(Mockito.anyInt());
+      verify(dao, times(10)).findById(Mockito.anyInt());
       //verify(dao, times(1)).save(updatedEmployee);
   }
 
