@@ -7,7 +7,7 @@
 	<groupId>com.tus</groupId>
 	<artifactId>employees-cicd</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>jar</packaging> 
 
 	<name>employees</name>
 	<description>Spring Boot ms for ci-cd pipeline with junits</description>
