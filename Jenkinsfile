@@ -18,6 +18,24 @@ pipeline {
                 echo 'Maven build Completed'
             }
         }
+        //**
+        stage('Integration Test') {
+            steps {
+                // Run integration tests
+                script {
+                    try {
+                        sh 'mvn clean test-compile failsafe:integration-test failsafe:verify -Dit.test=com.tus.controller.ItegrationTests -DtestSourceDirectory=src/main/test'
+                    // junit 'src/reports/*-jupiter.xml'
+                    } catch (err) {
+                        currentBuild.result = 'FAILURE'
+                        echo 'Integration tests failed!'
+                        error 'Integration tests failed!'
+                    }
+                }
+            echo 'Integration test Completed'
+            }
+        }
+        //***
         stage('JUnit Test') {
             steps {
                 // Run Junit tests
