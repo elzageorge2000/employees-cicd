@@ -24,7 +24,7 @@ pipeline {
                 // Run integration tests
                 script {
                     try {
-                        sh 'mvn clean test-compile failsafe:integration-test failsafe:verify -Dit.test=com.tus.controller.IntegrationTests -DtestSourceDirectory=src/main/test'
+                        sh 'mvn test -Dtest=com.tus.employees.controllers.IntegrationTests'
                     // junit 'src/reports/*-jupiter.xml'
                     } catch (err) {
                         currentBuild.result = 'FAILURE'
