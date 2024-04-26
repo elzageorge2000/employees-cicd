@@ -18,24 +18,7 @@ pipeline {
                 echo 'Maven build Completed'
             }
         }
-        //**
-        // stage('Integration Test') {
-        //     steps {
-        //         // Run integration tests
-        //         script {
-        //             try {
-        //                 sh 'mvn test -Dtest=com.tus.employees.controllers.IntegrationTests'
-        //             // junit 'src/reports/*-jupiter.xml'
-        //             } catch (err) {
-        //                 currentBuild.result = 'FAILURE'
-        //                 echo 'Integration tests failed!'
-        //                 error 'Integration tests failed!'
-        //             }
-        //         }
-        //     echo 'Integration test Completed'
-        //     }
-        // }
-        //***
+        
         stage('JUnit Test') {
             steps {
                 // Run Junit tests
