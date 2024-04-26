@@ -102,7 +102,7 @@ pipeline {
                                     excludes: '',
                                     execCommand: '''
                                         cd /opt/elza/
-                                        ansible-playbook start_container.yml
+                                        ansible-playbook docker-deploy.yaml
                                     ''',
                                     execTimeout: 120000,
                                     flatten: false,
