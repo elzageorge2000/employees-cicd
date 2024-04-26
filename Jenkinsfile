@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/thomassharun/employees-cicd.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/elzageorge2000/employees-cicd.git']])
                 echo 'Git Checkout Completed'
             }
         }
@@ -42,7 +42,6 @@ pipeline {
                 script {
                     try {
                         sh 'mvn clean test surefire-report:report' 
-                        //junit 'src/reports/*-jupiter.xml'
                     } catch (err) {
                         currentBuild.result = 'FAILURE'
                         echo 'Unit tests failed!'
@@ -56,7 +55,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh '''mvn clean verify sonar:sonar -Dsonar.projectKey=cicd-full -Dsonar.projectName='cicd-full' -Dsonar.host.url=http://localhost:9000''' //port 9000 is default for sonar
+                    sh '''mvn clean verify sonar:sonar -Dsonar.projectKey=ci-cd-employees -Dsonar.projectName='ci-cd-employees' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_b2e02e39466407dbb52e36ace6615f4aaf2287e9''' //port 9000 is default for sonar
                     echo 'SonarQube Analysis Completed'
                 }
             }
@@ -66,7 +65,7 @@ pipeline {
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
-                            configName: 'ansible-server1',
+                            configName: 'ansible',
                             transfers: [
                                 sshTransfer(
                                     cleanRemote: false,
@@ -77,7 +76,7 @@ pipeline {
                                     makeEmptyDirs: false,
                                     noDefaultExcludes: false,
                                     patternSeparator: '[, ]+',
-                                    remoteDirectory: '//opt//deploy-sharun',
+                                    remoteDirectory: '//opt//elza',
                                     remoteDirectorySDF: false,
                                     removePrefix: 'target',
                                     sourceFiles: 'target/*.jar'
@@ -96,13 +95,13 @@ pipeline {
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
-                            configName: 'ansible-server1',
+                            configName: 'ansible',
                             transfers: [
                                 sshTransfer(
                                     cleanRemote: false,
                                     excludes: '',
                                     execCommand: '''
-                                        cd /opt/deploy-sharun/
+                                        cd /opt/elza/
                                         ansible-playbook start_container.yml
                                     ''',
                                     execTimeout: 120000,
